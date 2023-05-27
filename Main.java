@@ -51,10 +51,8 @@ public class Main {
                 int tag = current.getTag();
                 ArrayList<Integer> row = cache.get(setIndex);
                 if (row.contains(tag)) { // Write a contians fuction that only matches Tag
-                    int index = row.indexOf(tag);
-                    for (int i = index; i < row.size() - 1; i++) {
-                        Collections.swap(row, i, i + 1);
-                    }
+                    row.remove(row.indexOf(tag));
+                    row.add(tag);
                 } else {
 
                     if (row.size() < columnNum) {
