@@ -50,13 +50,12 @@ public class Main {
                 int setIndex = current.getSetIndex();
                 int tag = current.getTag();
                 ArrayList<Integer> row = cache.get(setIndex);
-                if (row.contains(tag)) { // Write a contians fuction that only matches Tag
+                if (row.contains(tag)) {
                     row.remove(row.indexOf(tag));
                     row.add(tag);
                 } else {
 
                     if (row.size() < columnNum) {
-
                         row.add(tag);
                     } else {
                         row.remove(0);
@@ -64,6 +63,7 @@ public class Main {
                     }
                 }
             }
+
         }
     }
 }
@@ -76,9 +76,9 @@ class Block {
     Block(String binary, int blockSize, int rowNum) {
         int offsetBits = (int) (Math.log(blockSize) / Math.log(2));
         int setIndexBits = (int) ((Math.log(rowNum) / Math.log(2)));
-        this.offset = Integer.parseInt(binary.substring(31 - offsetBits), 2);
-        this.setIndex = Integer.parseInt(binary.substring(31 - offsetBits - setIndexBits, 31 - offsetBits), 2);
-        this.tag = Integer.parseInt(binary.substring(0, 21 - offsetBits - setIndexBits), 2);
+        this.offset = Integer.parseInt(binary.substring(32 - offsetBits), 2);
+        this.setIndex = Integer.parseInt(binary.substring(32 - offsetBits - setIndexBits, 32 - offsetBits), 2);
+        this.tag = Integer.parseInt(binary.substring(0, 32 - offsetBits - setIndexBits), 2);
     }
 
     int getSetIndex() {
