@@ -46,15 +46,24 @@ public class Main {
             for (int i = 0; i < rowNum; i++) {
                 cache.add(new ArrayList<Integer>());
             }
+            ArrayList<Integer> setHits = new ArrayList<Integer>();
+            ArrayList<Integer> setMiss = new ArrayList<Integer>();
+            for (int i = 0; i < rowNum; i++) {
+                setHits.add(0);
+                setMiss.add(0);
+            }
             for (Block current : fileHex) {
                 int setIndex = current.getSetIndex();
                 int tag = current.getTag();
                 ArrayList<Integer> row = cache.get(setIndex);
                 if (row.contains(tag)) {
                     row.remove(row.indexOf(tag));
+                    int currHits = setHits.get(setIndex);
+                    setHits.set(setIndex, currHits + 1);
                     row.add(tag);
                 } else {
-
+                    int currMiss = setMiss.get(setIndex);
+                    setMiss.set(setIndex, currMiss + 1);
                     if (row.size() < columnNum) {
                         row.add(tag);
                     } else {
@@ -63,7 +72,10 @@ public class Main {
                     }
                 }
             }
-
+            System.out.println("Set Index" + "\tSet Hits" + "\tSet Miss");
+            for (int i = 0; i < rowNum; i++) {
+                System.out.println("    " + i + ":" + "\t\t   " + setHits.get(i) + "\t\t   " + setMiss.get(i));
+            }
         }
     }
 }
