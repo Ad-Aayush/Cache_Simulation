@@ -17,11 +17,11 @@ public
             ArrayList<Block> fileHex = new ArrayList<Block>();
             try
             {
-                cacheSize = Integer.parseInt(args[0]) * 1024;
+                cacheSize = (int)(Float.parseFloat(args[0]) * 1024);
             }
             catch (NumberFormatException e)
             {
-                System.out.println("Cache Size must be an Integer");
+                System.out.println("Cache Size must be an Integer or Float");
                 System.exit(0);
             }
             try
