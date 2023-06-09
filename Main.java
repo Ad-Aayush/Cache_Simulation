@@ -2,11 +2,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
-public
-class Main
+public class Main
 {
-public
-    static void main(String args[])
+    public static void main(String args[])
     {
         if (args.length != 4)
             System.out.println(
@@ -110,7 +108,7 @@ public
             System.out.println("Set Index" + "\tSet Hits" + "\tSet Miss");
             for (int i = 0; i < rowNum; i++)
             {
-                System.out.println("    " + i + ":" + "\t\t   " + setHits.get(i) + "\t\t   " + setMiss.get(i));
+                System.out.println("    " + i + " " + "\t\t   " + setHits.get(i) + "\t\t   " + setMiss.get(i));
             }
             int totalHits = 0;
             int totalMiss = 0;
@@ -127,16 +125,23 @@ public
 
 class Block
 {
-    int offset;
-    int setIndex;
-    int tag;
+    private int offset;
+    private int setIndex;
+    private int tag;
 
     Block(String binary, int blockSize, int rowNum)
     {
         int offsetBits = (int)(Math.log(blockSize) / Math.log(2));
         int setIndexBits = (int)((Math.log(rowNum) / Math.log(2)));
         this.offset = Integer.parseInt(binary.substring(32 - offsetBits), 2);
-        this.setIndex = Integer.parseInt(binary.substring(32 - offsetBits - setIndexBits, 32 - offsetBits), 2);
+        try
+        {
+            this.setIndex = Integer.parseInt(binary.substring(32 - offsetBits - setIndexBits, 32 - offsetBits), 2);
+        }
+        catch(NumberFormatException e) 
+        {
+            this.setIndex = 0;
+        }
         this.tag = Integer.parseInt(binary.substring(0, 32 - offsetBits - setIndexBits), 2);
     }
 
